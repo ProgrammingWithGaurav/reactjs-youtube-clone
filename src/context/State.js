@@ -4,9 +4,10 @@ import context from './Context';
 const State = (props) => {
     const [input, setInput] = useState('');
     const [query, setQuery] = useState('');
-    
+    const [user, setUser] = useState(null);
+
     return (
-        <context.Provider value={{input, setInput, query, setQuery}}>
+        <context.Provider value={{input, setInput, query, setQuery, user, setUser}}>
             {props.children}
         </context.Provider>
     )
