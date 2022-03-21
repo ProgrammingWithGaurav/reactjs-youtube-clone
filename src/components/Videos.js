@@ -36,7 +36,7 @@ const Videos = () => {
         <Container style={container} >
             {
                   videos.length > 0 && videos.map(({title, videoUrl, description, channelName, channelPhoto, timestamp, id}) => (
-                    <Video key={id} id={id} title={title} videoUrl={videoUrl} description={description} channelPhot={channelPhoto} channelName={channelName} timestamp={timestamp}/>
+                    <Video key={id} id={id} title={title} videoUrl={videoUrl} description={description} channelPhoto={channelPhoto} channelName={channelName} timestamp={timestamp}/>
                 ))
             }
         </Container>

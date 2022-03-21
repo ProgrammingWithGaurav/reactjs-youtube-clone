@@ -6,6 +6,7 @@ import context from './context/Context';
 import Videos from './components/Videos';
 import { auth } from './firebase';
 import PlayVideo from './components/PlayVideo';
+import CreateVideo from './components/CreateVideo';
 
 function App() {
   const {user, setUser} = useContext(context);
@@ -38,6 +39,12 @@ function App() {
               <>
                 <Header />
                 <PlayVideo />
+              </>
+            } /> 
+            <Route exact path='/create' element={
+              <>
+                <Header />
+                <CreateVideo />
               </>
             } />
           </Routes>
