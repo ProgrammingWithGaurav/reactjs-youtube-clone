@@ -3,7 +3,9 @@ import Header from './components/Header';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import Login from './components/Login';
 import context from './context/Context';
+import Videos from './components/Videos';
 import { auth } from './firebase';
+import PlayVideo from './components/PlayVideo';
 
 function App() {
   const {user, setUser} = useContext(context);
@@ -27,10 +29,17 @@ function App() {
             <Route path='/' element={
               <>
                 <Header />
+                <Videos />
               </>
             }
             />
             <Route exact path='/login' element={<Login />} />
+            <Route exact path='/video' element={
+              <>
+                <Header />
+                <PlayVideo />
+              </>
+            } />
           </Routes>
     </>
   )
