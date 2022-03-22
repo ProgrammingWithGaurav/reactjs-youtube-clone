@@ -28,7 +28,7 @@ const Videos = () => {
             })));
           }
         ),
-      [db]
+      []
     );
 
     return (

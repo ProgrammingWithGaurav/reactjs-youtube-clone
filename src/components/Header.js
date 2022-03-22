@@ -4,9 +4,10 @@ import {AppBar, Box, Toolbar, IconButton, Typography, InputBase, Badge, Avatar} 
 import SearchIcon from '@mui/icons-material/Search';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import context from '../context/Context';
-import {signOut } from 'firebase/auth';
+import {signOut, getAuth} from 'firebase/auth';
+import AddIcon from '@mui/icons-material/Add';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -49,7 +50,9 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function Header() {
-  const { input, user, setInput, setQuery } = useContext(context);
+  const { input,setUser, user, setInput, setQuery } = useContext(context);
+  const navigate = useNavigate();
+  const auth = getAuth();
 
   return (
     <Box sx={{ width: '100vw' }}>
@@ -84,7 +87,7 @@ export default function Header() {
             </form>
           </Search>
           <Box sx={{ flexGrow: 1 }} />
-          <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+          <Box sx={{ display: 'flex'}}>
             <IconButton
               size="large"
               aria-label="show 17 new notifications"
@@ -94,25 +97,23 @@ export default function Header() {
                 <NotificationsIcon />
               </Badge>
             </IconButton>
+            <IconButton onClick={() => navigate('/create')} style={{color: 'white'}}>
+                <AddIcon />
+            </IconButton>
             <IconButton
               size="large"
               edge="end"
               aria-label="account of current user"
               aria-haspopup="true"
-              onClick={signOut}
+              onClick={() => signOut(auth).then(() => {
+                setUser(null)
+                navigate('/login')
+              }).catch((error) => {
+                console.log(error.message)
+              })}
               color="inherit"
             >
               <Avatar src={user && user.photoURL} />
-            </IconButton>
-          </Box>
-          <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
-            <IconButton
-              size="large"
-              aria-label="show more"
-              aria-haspopup="true"
-              color="inherit"
-            >
-              <MoreIcon />
             </IconButton>
           </Box>
         </Toolbar>
